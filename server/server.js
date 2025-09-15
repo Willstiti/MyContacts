@@ -2,16 +2,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
-const { handleNewUser } = require("./src/controllers/AuthController");
+const { handleLogin } = require("./src/controllers/AuthController");
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3500;
+const PORT = 3500;
 
 app.use(express.json());
 
-app.post("/register", handleNewUser);
+app.post("/register", handleLogin);
 
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
