@@ -1,24 +1,21 @@
     const User = require("../Model/User");
     const bcrypt = require("bcrypt");
-
-    const handleNewUser = async(req, res)=>{
+    const jwt = require('jsonwebtoken');
+    const handleLogin = async(req, res)=>{
         const {email, pwd} = req.body;
-        if(!email || !pwd) return res.status(400).json({"message": "email and password are required"});
+        const user = await User.findOne({ email });
+        if (!user) return res.status(401).json({ error: 'Authentication failed' });
 
-        const duplicate = await User.findOne({email: email}).exec();
-        if(duplicate) return res.sendStatus(409);
+        const checkpassword = await bcrypt.compare(pwd, user.password);
+        if(!checkpassword) return res.status(400).json({'failed': 'Password don\'t match'});
 
-        try{
-            const hashedPwd = await bcrypt.hash(pwd, 10);
-            const newUser = await User.create({
-                "email" : email,
-                "password" : hashedPwd,
-            })
+        const accessToken = jwt.sign(
+            { userId: user._id },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '1h' }
+        );
 
-            res.status(201).json({ 'success' : 'New user ${user} created'});
-        } catch (err){
-            res.status(500).json({ 'message' : err.message});
-        }   
+        res.json({ accessToken });
     }
 
-    module.exports = {handleNewUser};
+    module.exports = {handleLogin};
