@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const setupSwagger = require("./src/config/swagger");
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
@@ -14,6 +15,8 @@ const PORT = 3500;
 
 app.use(cors());
 app.use(express.json())
+setupSwagger(app);
+
 app.use("/", authRoutes);
 app.use("/", contactRoutes);
 
