@@ -2,16 +2,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
-const { handleLogin } = require("./src/controllers/AuthController");
+
+const authRoutes = require("./src/routes/authRoute");
+const protectedRoutes = require("./src/routes/protectedRoutes")
 
 dotenv.config();
 
 const app = express();
 const PORT = 3500;
 
-app.use(express.json());
-
-app.post("/register", handleLogin);
+app.use(express.json())
+app.use("/", authRoutes);
+app.use("/", protectedRoutes);
 
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
