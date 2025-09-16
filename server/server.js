@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
 const authRoutes = require("./src/routes/authRoute");
-const protectedRoutes = require("./src/routes/protectedRoutes")
+const contactRoutes = require("./src/routes/contactRoutes")
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const PORT = 3500;
 
 app.use(express.json())
 app.use("/", authRoutes);
-app.use("/", protectedRoutes);
+app.use("/", contactRoutes);
 
 mongoose.connect(process.env.MONGODB_URL)
   .then(() => {
