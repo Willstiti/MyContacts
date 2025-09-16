@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 const PORT = 3500;
 
+app.use(cors());
 app.use(express.json())
 app.use("/", authRoutes);
 app.use("/", contactRoutes);
