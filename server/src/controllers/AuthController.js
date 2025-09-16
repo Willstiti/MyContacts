@@ -1,6 +1,7 @@
     const User = require("../Model/User");
     const bcrypt = require("bcrypt");
     const jwt = require('jsonwebtoken');
+    
     const handleLogin = async(req, res)=>{
         const {email, pwd} = req.body;
         const user = await User.findOne({ email });
@@ -18,4 +19,15 @@
         res.json({ accessToken });
     }
 
-    module.exports = {handleLogin};
+
+
+    const getLoggedInUser = async (req, res) => {
+        const { _id, name, email } = await User.findById(req.user.id);
+        res.status(200).json({
+            id: _id,
+            name,
+            email,
+        });
+    };
+    
+    module.exports = { handleLogin, getLoggedInUser };
