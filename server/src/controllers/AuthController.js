@@ -1,22 +1,15 @@
     const User = require("../Model/User");
-    const bcrypt = require("bcrypt");
-    const jwt = require('jsonwebtoken');
+    const AuthService = require("../services/authService")
+    
     
     const handleLogin = async(req, res)=>{
-        const {email, pwd} = req.body;
-        const user = await User.findOne({ email });
-        if (!user) return res.status(401).json({ error: 'Authentication failed' });
-
-        const checkpassword = await bcrypt.compare(pwd, user.password);
-        if(!checkpassword) return res.status(400).json({'failed': 'Password don\'t match'});
-
-        const accessToken = jwt.sign(
-            { userId: user._id },
-            process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        res.json({ accessToken });
+        const {email, password} = req.body;
+        try{
+            await AuthService.logUser(email, password);
+            res.status(201).json({ 'success' : 'Logged in Successfully'});
+        }catch(err){
+            res.status(500).json({ 'Error message' : err.message});
+        }
     }
 
     const getLoggedInUser = async (req, res) => {
