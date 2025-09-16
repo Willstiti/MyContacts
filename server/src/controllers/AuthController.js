@@ -19,8 +19,6 @@
         res.json({ accessToken });
     }
 
-
-
     const getLoggedInUser = async (req, res) => {
         const { _id, email } = await User.findById(req.user.id);
         res.status(200).json({

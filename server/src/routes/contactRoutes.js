@@ -1,5 +1,4 @@
 const express = require("express");
-const {getLoggedInUser} = require("../controllers/AuthController")
 const {protect} = require("../middlewares/requireAuth")
 const {getUserContact, createContact, editContact, deleteContact} = require("../controllers/ContactController")
 
