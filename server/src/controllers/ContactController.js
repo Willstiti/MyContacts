@@ -25,7 +25,7 @@ const editContact = async(req, res)=>{
     const contactId = req.params.id;
     try{
         await contactService.updateContact(contactId, req.body);
-        res.status(201).json({ 'success' : 'Contact has been updated'});
+        res.status(200).json({ 'success' : 'Contact has been updated'});
     } catch (err){
         res.status(500).json({ 'Error message' : err.message});
     }  
