@@ -6,7 +6,7 @@
         const {email, password} = req.body;
         try{
             await AuthService.logUser(email, password);
-            res.status(201).json({ 'success' : 'Logged in Successfully'});
+            res.status(200).json({ token });
         }catch(err){
             res.status(500).json({ 'Error message' : err.message});
         }
