@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const ContactAddForm = () => {
   const [firstName, setfirstName] = useState("");
@@ -11,7 +12,7 @@ const ContactAddForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3500/contact/add", {
+      const response = await fetch(`${API_URL}/contact/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -9,7 +10,7 @@ const ContactList = () => {
   const fetchContacts = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:3500/contact/list", {
+        const response = await fetch(`${API_URL}/contact/list`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -32,7 +33,7 @@ const ContactList = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3500/contact/${id}`, {
+      const response = await fetch(`${API_URL}/contact/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

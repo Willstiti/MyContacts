@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const ContactEditForm = () => {
   const [firstName, setfirstName] = useState("");
@@ -12,7 +13,7 @@ const ContactEditForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3500/contact/${id}`, {
+      const response = await fetch(`${API_URL}/contact/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
