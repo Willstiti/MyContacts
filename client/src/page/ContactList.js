@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -7,7 +7,7 @@ const ContactList = () => {
   const [contacts, setContacts] = useState([]);
   const navigate = useNavigate();
   
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(`${API_URL}/contact/list`, {
@@ -32,7 +32,7 @@ const ContactList = () => {
       } catch (err) {
         console.error("Erreur réseau :", err);
       }
-    };
+    },[navigate]);
   
   const handleDelete = async (id) => {
     try {
@@ -62,7 +62,7 @@ const ContactList = () => {
 
   useEffect(() => {
     fetchContacts();
-  }, []);
+  }, [fetchContacts]);
 
   return (
     <div>
