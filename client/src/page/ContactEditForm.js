@@ -28,7 +28,12 @@ const ContactEditForm = () => {
         alert(data.success);
         navigate("/contactList");
       } else {
-        alert(data["Error message"]);
+        if (response.status === 401) { 
+            alert("Votre session a expiré, veuillez vous reconnecter.");
+            navigate("/"); 
+            return;
+          }
+        alert(response.status["Error message"]);
       }
     } catch (error) {
       console.error("Erreur réseau :", error);

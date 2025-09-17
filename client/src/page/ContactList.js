@@ -23,7 +23,11 @@ const ContactList = () => {
         if (response.ok) {
           setContacts(data);
         } else {
-          alert(data["Error message"]);
+          if (response.status === 401) { 
+            alert("Votre session a expiré, veuillez vous reconnecter.");
+            navigate("/"); 
+            return;
+          } 
         }
       } catch (err) {
         console.error("Erreur réseau :", err);
