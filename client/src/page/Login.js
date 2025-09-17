@@ -23,7 +23,6 @@ const Login = () =>
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        alert(data.success);
         navigate("/contactList");
       } else {
         alert(data["Error message"]);
