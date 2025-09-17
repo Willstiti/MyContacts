@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -19,7 +20,6 @@ const ContactList = () => {
 
         if (response.ok) {
           setContacts(data);
-          alert(data.success);
         } else {
           alert(data["Error message"]);
         }
@@ -34,13 +34,16 @@ const ContactList = () => {
   return (
     <div>
       <h2>Mes contacts</h2>
+      <Link to="/addcontact">
+          <button>Ajouter un contact</button>
+      </Link>
       {contacts.length === 0 ? (
         <p>Aucun contact enregistré</p>
       ) : (
         <ul>
           {contacts.map((contact) => (
             <li key={contact._id}>
-              {contact.nom} - {contact.email}
+              {contact.firstName} - {contact.lastName} : {contact.phoneNumber}
             </li>
           ))}
         </ul>

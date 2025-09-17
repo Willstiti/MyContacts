@@ -4,6 +4,7 @@ import HomePage from './page/HomePage';
 import Login from './page/Login'
 import Register from './page/Register'
 import ContactList from './page/ContactList'
+import ContactAddForm from './page/ContactAddForm'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contactList" element={<ContactList />} />
+        <Route path="/addcontact" element={<ContactAddForm />} />
       </Routes>
     </BrowserRouter>
   );
