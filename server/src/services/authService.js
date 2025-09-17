@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 async function createUser(email, password) {
     if(!email || !password) throw new Error("Email and Password are required");
     
-    const duplicate = await User.findOne({email: email}).exec();
+    const duplicate = await User.findOne({email: email});
     if(duplicate) throw new Error('User already exists');
     
     const hashedPwd = await bcrypt.hash(password, 10);
